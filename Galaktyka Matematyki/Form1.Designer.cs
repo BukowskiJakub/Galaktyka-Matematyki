@@ -31,21 +31,35 @@ namespace Galaktyka_Matematyki
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            pictureBoxWithInterpolationMode1 = new PictureBoxWithInterpolationMode();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxWithInterpolationMode1).BeginInit();
+            label1 = new Label();
+            label2 = new Label();
             SuspendLayout();
             // 
-            // pictureBoxWithInterpolationMode1
+            // label1
             // 
-            pictureBoxWithInterpolationMode1.BackColor = Color.Transparent;
-            pictureBoxWithInterpolationMode1.Image = (Image)resources.GetObject("pictureBoxWithInterpolationMode1.Image");
-            pictureBoxWithInterpolationMode1.InterpolationMode = InterpolationMode.NearestNeighbor;
-            pictureBoxWithInterpolationMode1.Location = new Point(55, 116);
-            pictureBoxWithInterpolationMode1.Name = "pictureBoxWithInterpolationMode1";
-            pictureBoxWithInterpolationMode1.Size = new Size(314, 128);
-            pictureBoxWithInterpolationMode1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBoxWithInterpolationMode1.TabIndex = 0;
-            pictureBoxWithInterpolationMode1.TabStop = false;
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Consolas", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(12, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(111, 34);
+            label1.TabIndex = 2;
+            label1.Text = "Punkty";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Consolas", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(129, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(143, 34);
+            label2.TabIndex = 3;
+            label2.Text = "{points}";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -54,16 +68,19 @@ namespace Galaktyka_Matematyki
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1264, 985);
-            Controls.Add(pictureBoxWithInterpolationMode1);
+            Controls.Add(label2);
+            Controls.Add(label1);
             DoubleBuffered = true;
             Name = "Form1";
             Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)pictureBoxWithInterpolationMode1).EndInit();
+            KeyDown += Keydown;
+            KeyUp += Keyup;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
-
-        private PictureBoxWithInterpolationMode pictureBoxWithInterpolationMode1;
+        private Label label1;
+        private Label label2;
     }
 }
