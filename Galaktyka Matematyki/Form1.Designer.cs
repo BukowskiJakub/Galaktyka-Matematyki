@@ -30,9 +30,8 @@ namespace Galaktyka_Matematyki
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             label1 = new Label();
-            label2 = new Label();
+            pointsDisplay = new Label();
             SuspendLayout();
             // 
             // label1
@@ -41,36 +40,37 @@ namespace Galaktyka_Matematyki
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Consolas", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(12, 9);
+            label1.Location = new Point(14, 12);
             label1.Name = "label1";
-            label1.Size = new Size(111, 34);
+            label1.Size = new Size(139, 43);
             label1.TabIndex = 2;
             label1.Text = "Punkty";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // pointsDisplay
             // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Consolas", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(129, 9);
-            label2.Name = "label2";
-            label2.Size = new Size(143, 34);
-            label2.TabIndex = 3;
-            label2.Text = "{points}";
-            label2.TextAlign = ContentAlignment.MiddleCenter;
+            pointsDisplay.AutoSize = true;
+            pointsDisplay.BackColor = Color.Transparent;
+            pointsDisplay.Font = new Font("Consolas", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
+            pointsDisplay.ForeColor = Color.White;
+            pointsDisplay.Location = new Point(147, 12);
+            pointsDisplay.Name = "pointsDisplay";
+            pointsDisplay.Size = new Size(179, 43);
+            pointsDisplay.TabIndex = 3;
+            pointsDisplay.Text = "{points}";
+            pointsDisplay.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackColor = Color.Black;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1264, 985);
-            Controls.Add(label2);
+            ClientSize = new Size(1445, 1055);
+            Controls.Add(pointsDisplay);
             Controls.Add(label1);
             DoubleBuffered = true;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
             Text = "Form1";
             KeyDown += Keydown;
@@ -81,6 +81,6 @@ namespace Galaktyka_Matematyki
 
         #endregion
         private Label label1;
-        private Label label2;
+        private Label pointsDisplay;
     }
 }

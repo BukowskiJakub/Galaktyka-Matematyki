@@ -12,17 +12,22 @@ namespace Galaktyka_Matematyki
         Player player = new Player();
 
         private System.Windows.Forms.Timer updateTimer = new System.Windows.Forms.Timer();
+        private System.Windows.Forms.Timer updateTimer2 = new System.Windows.Forms.Timer();
         private System.Windows.Forms.Timer generateTimer = new System.Windows.Forms.Timer();
 
-        int points = 0;
+        int points = 5;
 
         public Form1()
         {
             InitializeComponent();
 
-            updateTimer.Interval = 10;
+            updateTimer.Interval = 5;
             updateTimer.Tick += new EventHandler(Update);
             updateTimer.Start();
+
+            updateTimer2.Interval = 5;
+            updateTimer2.Tick += new EventHandler(Update2);
+            updateTimer2.Start();
 
             generateTimer.Interval = 2000;
             generateTimer.Tick += new EventHandler(Generator);
@@ -31,6 +36,8 @@ namespace Galaktyka_Matematyki
             player.Name = "player";
             player.Location = new Point(569, 800);
             Controls.Add(player);
+
+            pointsDisplay.Text = points.ToString();
         }
 
         private void Generator(object sender, EventArgs e)
@@ -48,42 +55,48 @@ namespace Galaktyka_Matematyki
             Controls.Add(asteroid);
             asteroid.BringToFront();
 
-            foreach (Asteroid a in asteroids)
+            try
             {
-                if (a.Location.Y >= 1200)
+                foreach (Asteroid a in asteroids)
                 {
-                    Controls.Remove(a);
-                    a.Dispose();
+                    if (a.Location.Y >= 1200)
+                    {
+                        Controls.Remove(a);
+                        asteroids.Remove(a);
+                    }
                 }
             }
+            catch {}
         }
 
         private void Update(object sender, EventArgs e)
         {
-            foreach (Asteroid a in asteroids)
-            {
-                a.Location = new Point(a.Location.X, a.Location.Y + 5);
-            }
-
-            //pictureBoxWithInterpolationMode1.Location = new Point(pictureBoxWithInterpolationMode1.Location.X, pictureBoxWithInterpolationMode1.Location.Y + 1);
             if (isLeft == true)
             {
-                Point punkt = new Point(player.Location.X - 10, player.Location.Y);
-                player.Location = punkt;
+                Point p = new Point(player.Location.X - 5, player.Location.Y);
+                player.Location = p;
             }
             else if (isRight == true)
             {
-                Point punkt = new Point(player.Location.X + 10, player.Location.Y);
-                player.Location = punkt;
+                Point p = new Point(player.Location.X + 5, player.Location.Y);
+                player.Location = p;
             }
-            Collision();
         }
+
+        private void Update2(object sender, EventArgs e)
+        {
+            Collision();
+            foreach (Asteroid a in asteroids)
+            {
+                a.Location = new Point(a.Location.X, a.Location.Y + 3);
+            }
+        }
+
         private void Keydown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Left)
             {
                 isLeft = true;
-                //pictureBoxWithInterpolationMode2.Image.RotateFlip(RotateFlipType.Rotate90FlipXY);
             }
             else if (e.KeyCode == Keys.Right)
             {
@@ -103,8 +116,22 @@ namespace Galaktyka_Matematyki
             }
         }
 
-        void Collision()
+        private void Collision()
         {
+            try
+            {
+                foreach (Asteroid a in asteroids)
+                {
+                    if (player.Bounds.IntersectsWith(a.Bounds))
+                    {
+                        points--;
+                        pointsDisplay.Text = points.ToString();
+                        Controls.Remove(a);
+                        asteroids.Remove(a);
+                    }
+                }
+            }
+            catch { }
         }
     }
 }
