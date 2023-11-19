@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 
 namespace Galaktyka_Matematyki
 {
-    public class Asteroid : GameObject
+    public class GameObject : PictureBoxWithInterpolationMode
     {
-        public Asteroid()
+        public GameObject()
         {
-            this.Image = Resources.asteroid;
-            this.Size = new Size(116, 127);
+            this.InterpolationMode = InterpolationMode.NearestNeighbor;
+            this.SizeMode = PictureBoxSizeMode.Zoom;
+            this.BackColor = Color.Transparent;
         }
     }
 }

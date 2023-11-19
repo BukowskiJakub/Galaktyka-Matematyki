@@ -8,7 +8,7 @@ namespace Galaktyka_Matematyki
     {
         bool isLeft = false, isRight = false;
 
-        List<Asteroid> asteroids = new List<Asteroid>();
+        List<GameObject> gameobjects = new List<GameObject>();
         Player player = new Player();
 
         private System.Windows.Forms.Timer updateTimer = new System.Windows.Forms.Timer();
@@ -42,31 +42,44 @@ namespace Galaktyka_Matematyki
 
         private void Generator(object sender, EventArgs e)
         {
-            Asteroid asteroid = new Asteroid();
+            Type obstacletype;
 
             int posX, posY;
+            int type;
 
             posX = new Random().Next(100, 1200);
             posY = -200;
 
-            asteroid.Location = new Point(posX, posY);
+            type = new Random().Next(0, 1000);
+            if (type >= 0 && type <= 100)
+            {
+                obstacletype = typeof(BlackHole);
+            }
+            else
+            {
+                obstacletype = typeof(Asteroid);
+            }
 
-            asteroids.Add(asteroid);
-            Controls.Add(asteroid);
-            asteroid.BringToFront();
+            object obstacle = Activator.CreateInstance(obstacletype);
+
+            obstacle.Location = new Point(posX, posY);
+
+            gameobjects.Add(obstacle);
+            Controls.Add(obstacle);
+            obstacle.BringToFront();
 
             try
             {
-                foreach (Asteroid a in asteroids)
+                foreach (GameObject go in gameobjects)
                 {
-                    if (a.Location.Y >= 1200)
+                    if (go.Location.Y >= 1200)
                     {
-                        Controls.Remove(a);
-                        asteroids.Remove(a);
+                        Controls.Remove(go);
+                        gameobjects.Remove(go);
                     }
                 }
             }
-            catch {}
+            catch { }
         }
 
         private void Update(object sender, EventArgs e)
@@ -86,9 +99,9 @@ namespace Galaktyka_Matematyki
         private void Update2(object sender, EventArgs e)
         {
             Collision();
-            foreach (Asteroid a in asteroids)
+            foreach (GameObject go in gameobjects)
             {
-                a.Location = new Point(a.Location.X, a.Location.Y + 3);
+                go.Location = new Point(go.Location.X, go.Location.Y + 3);
             }
         }
 
@@ -120,14 +133,21 @@ namespace Galaktyka_Matematyki
         {
             try
             {
-                foreach (Asteroid a in asteroids)
+                foreach (GameObject go in gameobjects)
                 {
-                    if (player.Bounds.IntersectsWith(a.Bounds))
+                    if (player.Bounds.IntersectsWith(go.Bounds) && go is Asteroid)
                     {
                         points--;
                         pointsDisplay.Text = points.ToString();
-                        Controls.Remove(a);
-                        asteroids.Remove(a);
+                        Controls.Remove(go);
+                        gameobjects.Remove(go);
+                    }
+                    else
+                    {
+                        points-=100;
+                        pointsDisplay.Text = points.ToString();
+                        Controls.Remove(go);
+                        gameobjects.Remove(go);
                     }
                 }
             }
