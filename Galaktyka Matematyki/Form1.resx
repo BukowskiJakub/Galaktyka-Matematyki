@@ -121,12 +121,13 @@
     <value>Gracz steruje statkiem strzałkami lewo / prawo i stara się unikać przeszkód.
 Głównym zadaniem użytkownika jest zliczenie skał czerwonych i zielonych,
 a następnie wykonanie obliczenia. Jeżeli licznik punktów spadnie do zera lub
-statek spotka czarna dziurę, gra zakończy się.
+statek spotka czarną dziurę, gra zakończy się.
 W trakcie gry można wywołać menu pauzy (ESC)
 
-Grafiki:
+Grafika:
 https://arcadeisland.itch.io/space-shooter-wang-tiles
-Dźwięki:
+
+Dźwięk:
 Pixabay.com</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />

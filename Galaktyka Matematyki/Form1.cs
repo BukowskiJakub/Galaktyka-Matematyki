@@ -11,6 +11,8 @@ namespace Galaktyka_Matematyki
     public partial class Form1 : Form
     {
         SoundPlayer ambientSound = new SoundPlayer(Resources.spaceship_sound);
+        SoundPlayer correctSound = new SoundPlayer(Resources.correct_sound);
+        SoundPlayer incorrectSound = new SoundPlayer(Resources.incorrect_sound);
 
         bool isLeft = false, isRight = false, isPause = false, isGame = false;
 
@@ -47,13 +49,17 @@ namespace Galaktyka_Matematyki
 
         private void StartGame(object sender, EventArgs e)
         {
+            // Funkcja startowa, uruchomienia rozgrywki
+
             ambientSound.PlayLooping();
 
+            // Wartoœci pocz¹tkowe
             isLeft = false;
             isRight = false;
             isPause = false;
             isGame = true;
             points = 5;
+            correctAns = 0;
             redCount = 0; greenCount = 0; result = 0;
             redStart = 0; greenStart = 0;
             generationSpeed = 3;
@@ -81,12 +87,15 @@ namespace Galaktyka_Matematyki
 
         private void Generator(object sender, EventArgs e)
         {
+            // Generator lec¹cych obiektów
+
             int posX, posY;
             int type;
 
             posX = new Random().Next(100, 1200);
             posY = -400;
 
+            // Losowanie typu przeszkody
             type = new Random().Next(0, 1000);
             if (type >= 0 && type <= 100)
             {
@@ -128,8 +137,10 @@ namespace Galaktyka_Matematyki
                 asteroid.BringToFront();
             }
 
+            // Wywo³anie generatora dodatkowego
             GeneratorFill(posX, posY);
 
+            // Destrukcja obiektów poza polem widzenia
             try
             {
                 foreach (GameObject go in gameobjects)
@@ -146,6 +157,8 @@ namespace Galaktyka_Matematyki
 
         private void GeneratorFill(int X, int Y)
         {
+            // Generator dodatkowy, zwiêkszaj¹cy iloœæ obiektów lec¹cych
+
             int posX, posY;
             posX = new Random().Next(100, 1200);
 
@@ -165,6 +178,8 @@ namespace Galaktyka_Matematyki
 
         private void Update(object sender, EventArgs e)
         {
+            // Funkcja Update wywo³ywana cyklicznie w celu obs³ugi ruchu gracza
+
             if (isLeft == true && player.Location.X > -80)
             {
                 Point p = new Point(player.Location.X - 5, player.Location.Y);
@@ -175,12 +190,12 @@ namespace Galaktyka_Matematyki
                 Point p = new Point(player.Location.X + 5, player.Location.Y);
                 player.Location = p;
             }
-
-            debugLabel.Text = redStart + sign + greenStart + " = " + result;
         }
 
         private void Update2(object sender, EventArgs e)
         {
+            // Aktualizacja cykliczna lec¹cych obiektów
+
             Collision();
             foreach (GameObject go in gameobjects)
             {
@@ -190,6 +205,8 @@ namespace Galaktyka_Matematyki
 
         private void Keydown(object sender, KeyEventArgs e)
         {
+            // Funkcja wywo³ywana przez Forms po wykryciu zdarzenia z klawiatury, obs³uga klawiszy wciskanych
+
             if (e.KeyCode == Keys.Left)
             {
                 isLeft = true;
@@ -202,6 +219,8 @@ namespace Galaktyka_Matematyki
 
         private void pauseEvent()
         {
+            // Obs³uga wywo³ania menu pauzy
+
             if (isPause)
             {
                 isPause = false;
@@ -239,6 +258,8 @@ namespace Galaktyka_Matematyki
 
         private void Keyup(object sender, KeyEventArgs e)
         {
+            // Funkcja wywo³ywana przez Forms przy zdarzeniu puszczenia przycisku klawiatury
+
             if (e.KeyCode == Keys.Left)
             {
                 isLeft = false;
@@ -258,16 +279,16 @@ namespace Galaktyka_Matematyki
 
         private void Collision()
         {
-            SoundPlayer crashSound = new SoundPlayer(Resources.rock_crash);
+            // Obs³uga kolizji obiektów z graczem
+
             try
             {
                 foreach (GameObject go in gameobjects)
                 {
                     if (player.Bounds.IntersectsWith(go.Bounds) && go is Asteroid)
                     {
-                        //crashSound.Play();
                         points--;
-                        if(points<=0) finishEvent();
+                        if (points <= 0) finishEvent();
                         pointsDisplay.Text = points.ToString();
                         Controls.Remove(go);
                         gameobjects.Remove(go);
@@ -275,10 +296,6 @@ namespace Galaktyka_Matematyki
                     else if (player.Bounds.IntersectsWith(go.Bounds) && go is BlackHole)
                     {
                         finishEvent();
-                        //points -= 100;
-                        //pointsDisplay.Text = points.ToString();
-                        //Controls.Remove(go);
-                        //gameobjects.Remove(go);
                     }
                 }
             }
@@ -287,6 +304,8 @@ namespace Galaktyka_Matematyki
 
         private void Maths()
         {
+            // Wywo³anie okna wpisywania liczb dla u¿ytkownika
+
             mathMenu.Visible = true;
             mathMenu.Enabled = true;
             mathMenu.BringToFront();
@@ -298,6 +317,8 @@ namespace Galaktyka_Matematyki
 
         private void CountRandomizer()
         {
+            // Funkcja odpowiedzialna za losowanie liczb do równañ oraz znaku
+
             redCount = new Random().Next(1, 10);
             greenCount = new Random().Next(1, 10);
 
@@ -306,6 +327,7 @@ namespace Galaktyka_Matematyki
 
             signRand = new Random().Next(0, 3);
 
+            // Wybór znaku równania
             switch (signRand)
             {
                 case 0:
@@ -328,15 +350,19 @@ namespace Galaktyka_Matematyki
 
         private void sendButton_Click(object sender, EventArgs e)
         {
+            // Obs³uga przycisku zatwierdzenia podanych liczb
+
             if (String.Equals(redCount_box.Text, redStart.ToString()) &&
                 String.Equals(greenCount_box.Text, greenStart.ToString()) &&
                 String.Equals(result_box.Text, result.ToString())
                )
             {
+                correctSound.Play();
                 points += 25;
                 correctAns++;
                 pointsDisplay.Text = points.ToString();
             }
+            else { incorrectSound.Play(); }
 
             while (gameobjects.Any())
             {
@@ -363,10 +389,14 @@ namespace Galaktyka_Matematyki
             updateTimer.Start();
             updateTimer2.Start();
             generateTimer.Start();
+
+            ambientSound.Play();
         }
 
         private void infoBackButton_Click(object sender, EventArgs e)
         {
+            // Obs³uga przycisku powrotu z panelu Info
+
             infoPanel.Visible = false;
             infoPanel.Enabled = false;
 
@@ -384,6 +414,8 @@ namespace Galaktyka_Matematyki
 
         private void infoButton_Click(object sender, EventArgs e)
         {
+            // Obs³uga przycisku wejœcia do panelu Info
+
             if (sender == infoButton)
             {
                 mainMenu.Enabled = false;
@@ -402,16 +434,22 @@ namespace Galaktyka_Matematyki
 
         private void resumeButton_Click(object sender, EventArgs e)
         {
+            // Obs³uga przycisku wznowienia w menu pauzy
+
             pauseEvent();
         }
 
         private void finishButton_Click(object sender, EventArgs e)
         {
+            // Obs³uga przycisku zakoñczenia rozgrywki
+
             finishEvent();
         }
 
         private void finishEvent()
         {
+            // Funkcja wywo³uj¹ca panel podsumowania
+
             isPause = false;
 
             ambientSound.Stop();
@@ -434,9 +472,10 @@ namespace Galaktyka_Matematyki
 
         private void backToMenuButton_Click(object sender, EventArgs e)
         {
+            // Obs³uga przycisku powrotu do Menu g³ównego
+
             isGame = false;
-            //this.Controls.Clear();
-            //this.InitializeComponent();
+
             while (gameobjects.Any())
             {
                 try

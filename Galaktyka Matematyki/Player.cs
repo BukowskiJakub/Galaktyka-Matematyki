@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Galaktyka_Matematyki
 {
+    // Klasa obiektu Gracz
     public class Player : GameObject
     {
         public Player() 

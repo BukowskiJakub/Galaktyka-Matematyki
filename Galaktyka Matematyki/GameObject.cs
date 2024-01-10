@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Galaktyka_Matematyki
 {
+    // Klasa nadrzędna obiektów gry
     public class GameObject : PictureBoxWithInterpolationMode
     {
         public GameObject()

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Galaktyka_Matematyki
 {
+    // Klasa obiektu Czarna Dziura
     public class BlackHole : GameObject
     {
         public BlackHole()

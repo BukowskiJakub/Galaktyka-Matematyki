@@ -33,7 +33,6 @@ namespace Galaktyka_Matematyki
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             pointsText = new Label();
             pointsDisplay = new Label();
-            debugLabel = new Label();
             mathMenu = new Panel();
             result_box = new TextBox();
             equalSign_label = new Label();
@@ -73,12 +72,12 @@ namespace Galaktyka_Matematyki
             // pointsText
             // 
             pointsText.AutoSize = true;
-            pointsText.BackColor = Color.Transparent;
-            pointsText.Font = new Font("Consolas", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
+            pointsText.BackColor = Color.DimGray;
+            pointsText.Font = new Font("Consolas", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
             pointsText.ForeColor = Color.White;
             pointsText.Location = new Point(12, 9);
             pointsText.Name = "pointsText";
-            pointsText.Size = new Size(111, 34);
+            pointsText.Size = new Size(132, 41);
             pointsText.TabIndex = 2;
             pointsText.Text = "Punkty";
             pointsText.TextAlign = ContentAlignment.MiddleCenter;
@@ -87,30 +86,16 @@ namespace Galaktyka_Matematyki
             // pointsDisplay
             // 
             pointsDisplay.AutoSize = true;
-            pointsDisplay.BackColor = Color.Transparent;
-            pointsDisplay.Font = new Font("Consolas", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
+            pointsDisplay.BackColor = Color.DimGray;
+            pointsDisplay.Font = new Font("Consolas", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
             pointsDisplay.ForeColor = Color.White;
-            pointsDisplay.Location = new Point(129, 9);
+            pointsDisplay.Location = new Point(138, 9);
             pointsDisplay.Name = "pointsDisplay";
-            pointsDisplay.Size = new Size(143, 34);
+            pointsDisplay.Size = new Size(170, 41);
             pointsDisplay.TabIndex = 3;
             pointsDisplay.Text = "{points}";
             pointsDisplay.TextAlign = ContentAlignment.MiddleCenter;
             pointsDisplay.Visible = false;
-            // 
-            // debugLabel
-            // 
-            debugLabel.AutoSize = true;
-            debugLabel.BackColor = Color.Transparent;
-            debugLabel.Font = new Font("Consolas", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
-            debugLabel.ForeColor = Color.White;
-            debugLabel.Location = new Point(12, 97);
-            debugLabel.Name = "debugLabel";
-            debugLabel.Size = new Size(127, 34);
-            debugLabel.TabIndex = 4;
-            debugLabel.Text = "numbers";
-            debugLabel.TextAlign = ContentAlignment.MiddleCenter;
-            debugLabel.Visible = false;
             // 
             // mathMenu
             // 
@@ -361,9 +346,9 @@ namespace Galaktyka_Matematyki
             // 
             infoLabel.AutoSize = true;
             infoLabel.Font = new Font("Consolas", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            infoLabel.Location = new Point(39, 52);
+            infoLabel.Location = new Point(40, 28);
             infoLabel.Name = "infoLabel";
-            infoLabel.Size = new Size(770, 220);
+            infoLabel.Size = new Size(770, 242);
             infoLabel.TabIndex = 0;
             infoLabel.Text = resources.GetString("infoLabel.Text");
             // 
@@ -474,7 +459,6 @@ namespace Galaktyka_Matematyki
             Controls.Add(infoPanel);
             Controls.Add(pointsDisplay);
             Controls.Add(pointsText);
-            Controls.Add(debugLabel);
             DoubleBuffered = true;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
@@ -499,7 +483,6 @@ namespace Galaktyka_Matematyki
         #endregion
         private Label pointsText;
         private Label pointsDisplay;
-        private Label debugLabel;
         private Panel mathMenu;
         private TextBox redCount_box;
         private Button sendButton;

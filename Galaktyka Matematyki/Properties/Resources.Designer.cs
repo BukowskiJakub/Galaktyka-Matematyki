@@ -111,6 +111,15 @@ namespace Galaktyka_Matematyki.Properties {
         }
         
         /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.IO.UnmanagedMemoryStream podobny do zasobu System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream correct_sound {
+            get {
+                return ResourceManager.GetStream("correct_sound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap game_logo {
@@ -123,9 +132,9 @@ namespace Galaktyka_Matematyki.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.IO.UnmanagedMemoryStream podobny do zasobu System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream rock_crash {
+        internal static System.IO.UnmanagedMemoryStream incorrect_sound {
             get {
-                return ResourceManager.GetStream("rock_crash", resourceCulture);
+                return ResourceManager.GetStream("incorrect_sound", resourceCulture);
             }
         }
         

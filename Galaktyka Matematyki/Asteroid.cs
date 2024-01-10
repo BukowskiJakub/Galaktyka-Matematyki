@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Galaktyka_Matematyki
 {
+    // Klasa obiektu Asteroida
     public class Asteroid : GameObject
     {
         public Asteroid()
